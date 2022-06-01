@@ -7,12 +7,7 @@ canvas.addEventListener("mousemove", (event) => {
   draw(event.layerX, event.layerY);
 });
 canvas.addEventListener("touchmove", (event) => {
-  // draw(event.layerX, event.layerY); // ここを削除
-  var touch = event.touches[0]; // ここから追記
-  var x = touch.pageX - canvas.offsetLeft;
-  var y = touch.pageY - canvas.offsetTop;
-  event.preventDefault();
-  draw(x, y); // ここまで追記
+  draw(event.layerX, event.layerY);
 });
 
 canvas.addEventListener("mousedown", () => {
@@ -38,12 +33,20 @@ clearButton.addEventListener("click", () => {
 });
 
 let isDrag = false;
+
 function draw(x, y) {
   if (!isDrag) {
     return;
   }
 
-  context.lineWidth = 5;
-  context.lineTo(x, y);
+  context.lineWidth = 2;
+  context.lineTo(x - 14, y - 36);
+  //context.strokeStyle = "rgb(210,10,0)";
+  const grad = context.createLinearGradient(0, 0, 200, 200);
+  grad.addColorStop(0.0, "red");
+  grad.addColorStop(0.5, "green");
+  grad.addColorStop(1.0, "blue");
+  context.fillStyle = grad;
+  context.strokeStyle = grad;
   context.stroke();
 }
